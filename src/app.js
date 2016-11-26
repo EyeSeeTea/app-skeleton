@@ -16,6 +16,8 @@ import log from 'loglevel';
 import { init, config, getManifest } from 'd2/lib/d2';
 
 import LoadingMask from 'd2-ui/lib/loading-mask/LoadingMask.component';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import appTheme from './app/app.theme';
 
 // The react-tap-event-plugin is required by material-ui to make touch screens work properly with onClick events
 import 'react-tap-event-plugin';
@@ -26,7 +28,14 @@ import './app/app.scss';
 // Render the a LoadingMask to show the user the app is in loading
 // The consecutive render after we did our setup will replace this loading mask
 // with the rendered version of the application.
-render(<LoadingMask />, document.getElementById('app'));
+//render(<LoadingMask />, document.getElementById('app'));
+
+render(
+    <MuiThemeProvider muiTheme={appTheme}>
+        <LoadingMask />
+    </MuiThemeProvider>,
+    document.getElementById('app')
+);
 
 /**
  * Renders the application into the page.
@@ -34,7 +43,14 @@ render(<LoadingMask />, document.getElementById('app'));
  * @param d2 Instance of the d2 library that is returned by the `init` function.
  */
 function startApp(d2) {
-    render(<App d2={d2} />, document.querySelector('#app'));
+    //render(<App d2={d2} />, document.querySelector('#app'));
+
+     render(
+        <MuiThemeProvider muiTheme={appTheme}>
+            <App d2={d2} />
+        </MuiThemeProvider>,
+        document.getElementById('app')
+    );
 }
 
 

@@ -16,7 +16,7 @@ try {
     console.warn(`\nWARNING! Failed to load DHIS config:`, e.message);
     console.info('Using default config');
     dhisConfig = {
-        baseUrl: 'http://localhost:8080/dhis',
+        baseUrl: 'http://localhost:8080',
         authorization: 'Basic YWRtaW46ZGlzdHJpY3Q=', // admin:district
     };
 }
@@ -29,7 +29,6 @@ function log(req, res, opt) {
 
 const webpackConfig = {
     context: __dirname,
-    contentBase: __dirname,
     entry: './src/app.js',
     devtool: 'source-map',
     output: {
@@ -42,18 +41,15 @@ const webpackConfig = {
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                loader: 'babel',
-                query: {
-                    presets: ['es2015', 'stage-0', 'react'],
-                },
+                loader: 'babel-loader',
             },
             {
                 test: /\.css$/,
-                loader: 'style!css',
+                loader: 'style-loader!css-loader',
             },
             {
                 test: /\.scss$/,
-                loader: 'style!css!sass',
+                loader: 'style-loader!css-loader!sass-loader',
             },
         ],
     },
@@ -64,8 +60,8 @@ const webpackConfig = {
         },
     },
     devServer: {
-        progress: true,
-        colors: true,
+        // progress: true,
+        // colors: true,
         port: 8081,
         inline: true,
         compress: true,
